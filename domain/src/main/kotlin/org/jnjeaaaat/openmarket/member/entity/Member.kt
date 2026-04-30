@@ -1,0 +1,31 @@
+package org.jnjeaaaat.openmarket.member.entity
+
+import jakarta.persistence.*
+import org.jnjeaaaat.openmarket.entity.BaseEntity
+import org.jnjeaaaat.openmarket.member.type.MemberType
+
+@Entity
+class Member(
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    @Column(nullable = false, unique = true)
+    val email: String,
+
+    @Column(nullable = false)
+    val password: String,
+
+    @Column(nullable = false)
+    var name: String,
+
+    @Column(nullable = false)
+    var address: String = "",
+
+    @Column(nullable = false)
+    var zipCode: String = "",
+
+    @Enumerated(EnumType.STRING)
+    val memberType: MemberType = MemberType.BUYER
+
+) : BaseEntity()
