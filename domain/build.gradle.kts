@@ -1,6 +1,8 @@
 dependencies {
     api(project(":support:exception"))
     api(project(":support:jpa"))
+    api(project(":support:event"))
+    api(project(":support:logging"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
