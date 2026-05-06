@@ -6,12 +6,12 @@ data class SignUpCommand(
     val email: String,
     val password: String,
     val name: String
-) {
-    fun toEntity(): Member {
-        return Member(
-            email = email,
-            password = password,
-            name = name
-        )
-    }
+)
+
+fun SignUpCommand.toEntity(): Member {
+    return Member(
+        email = email,
+        password = password,
+        name = name
+    )
 }

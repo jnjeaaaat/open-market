@@ -3,6 +3,7 @@ package org.jnjeaaaat.openmarket.member.service
 import org.jnjeaaaat.openmarket.ErrorCode.ALREADY_EXISTS_EMAIL
 import org.jnjeaaaat.openmarket.common.publish
 import org.jnjeaaaat.openmarket.member.command.SignUpCommand
+import org.jnjeaaaat.openmarket.member.command.toEntity
 import org.jnjeaaaat.openmarket.member.event.MemberRegisteredEvent
 import org.jnjeaaaat.openmarket.member.exception.MemberException
 import org.jnjeaaaat.openmarket.member.repository.MemberRepository

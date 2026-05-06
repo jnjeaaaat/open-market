@@ -20,5 +20,10 @@ data class SignUpRequest(
     val name: String
 )
 
-fun SignUpRequest.toCommand() =
-    SignUpCommand(email, password, name)
+fun SignUpRequest.toCommand(): SignUpCommand {
+    return SignUpCommand(
+        email = email,
+        password = password,
+        name = name
+    )
+}
