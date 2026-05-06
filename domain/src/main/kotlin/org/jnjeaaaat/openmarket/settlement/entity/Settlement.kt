@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @EntityListeners(AuditingEntityListener::class)
 class Settlement(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @OneToOne(fetch = FetchType.LAZY)
     val orderItem: OrderItem,
 
@@ -30,4 +27,10 @@ class Settlement(
     @CreatedDate
     val settledAt: LocalDateTime
 
-)
+) {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
+}

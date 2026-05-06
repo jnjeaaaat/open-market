@@ -13,9 +13,6 @@ import java.time.LocalDateTime
 @EntityListeners(AuditingEntityListener::class)
 class OrderItem(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @ManyToOne(fetch = FetchType.LAZY)
     val order: Order,
 
@@ -36,4 +33,10 @@ class OrderItem(
 
     @CreatedDate
     val orderDate: LocalDateTime
-)
+) {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
+}

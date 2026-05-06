@@ -7,9 +7,6 @@ import org.jnjeaaaat.openmarket.member.type.MemberType
 @Entity
 class Member(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @Column(nullable = false, unique = true)
     val email: String,
 
@@ -28,4 +25,9 @@ class Member(
     @Enumerated(EnumType.STRING)
     val memberType: MemberType = MemberType.BUYER
 
-) : BaseEntity()
+) : BaseEntity() {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
+}

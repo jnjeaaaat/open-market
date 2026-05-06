@@ -2,7 +2,6 @@ package org.jnjeaaaat.openmarket.cart.entity
 
 import jakarta.persistence.*
 import org.jnjeaaaat.openmarket.member.entity.Member
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 
 @Entity
 @Table(
@@ -12,9 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 )
 class Cart(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", unique = true)
     val member: Member,
@@ -23,6 +19,10 @@ class Cart(
     val items: MutableList<CartItem> = mutableListOf()
 
 ) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
     companion object {
         fun of(member: Member) = Cart(member = member)
     }

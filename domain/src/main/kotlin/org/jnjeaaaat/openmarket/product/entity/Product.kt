@@ -9,9 +9,6 @@ import org.jnjeaaaat.openmarket.product.type.ProductStatus
 @Entity
 class Product(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @ManyToOne(fetch = FetchType.LAZY)
     val seller: Member,
 
@@ -36,4 +33,10 @@ class Product(
     @Enumerated(EnumType.STRING)
     var status: ProductStatus = ProductStatus.NORMAL
 
-) : BaseEntity()
+) : BaseEntity() {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
+}

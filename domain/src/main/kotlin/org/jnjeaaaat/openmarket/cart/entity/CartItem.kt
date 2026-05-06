@@ -7,9 +7,6 @@ import org.jnjeaaaat.openmarket.product.entity.Product
 @Entity
 class CartItem(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     val cart: Cart,
@@ -24,4 +21,10 @@ class CartItem(
     @Column(nullable = false)
     var isSelected: Boolean = true
 
-) : BaseEntity()
+) : BaseEntity() {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
+}

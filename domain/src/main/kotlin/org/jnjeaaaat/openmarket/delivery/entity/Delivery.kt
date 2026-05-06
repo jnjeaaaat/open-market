@@ -8,9 +8,6 @@ import org.jnjeaaaat.openmarket.orderItem.entity.OrderItem
 @Entity
 class Delivery(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @OneToOne(fetch = FetchType.LAZY)
     val orderItem: OrderItem,
 
@@ -32,4 +29,10 @@ class Delivery(
     @Column(nullable = false)
     val zipCode: String
 
-) : BaseEntity()
+) : BaseEntity() {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
+}

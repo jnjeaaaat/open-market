@@ -11,9 +11,6 @@ import org.jnjeaaaat.openmarket.member.entity.Member
 )
 class Wallet(
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", unique = true)
     val member: Member,
@@ -22,6 +19,11 @@ class Wallet(
     var balance: Long = 0L
 
 ) {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+
     companion object {
         fun of(member: Member) = Wallet(member = member)
     }
