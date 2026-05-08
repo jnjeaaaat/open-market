@@ -28,6 +28,6 @@ class Member(
 ) : BaseEntity() {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
 }
