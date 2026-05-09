@@ -29,7 +29,7 @@ object MemberFixture {
         name = name
     )
 
-    fun createMember(
+    fun member(
         email: String = "test@test.com",
         password: String = "test1234!@",
         name: String = "test_name",

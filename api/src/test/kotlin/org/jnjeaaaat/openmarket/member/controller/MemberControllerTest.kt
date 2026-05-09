@@ -5,7 +5,9 @@ import com.ninjasquad.springmockk.MockkBean
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.extensions.spring.SpringExtension
 import io.mockk.every
-import org.jnjeaaaat.openmarket.member.fixture.MemberFixture
+import org.jnjeaaaat.openmarket.ErrorCode
+import org.jnjeaaaat.openmarket.member.exception.MemberException
+import org.jnjeaaaat.openmarket.member.fixture.MemberFixture.signUpRequest
 import org.jnjeaaaat.openmarket.member.usecase.SignUpUseCase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -33,13 +35,12 @@ class MemberControllerTest(
             val url = "/members/sign-up"
 
             context("회원가입 요청이 전달 되면") {
-                val signUpRequest = MemberFixture.signUpRequest()
-
-                every { signUpUseCase(any()) } returns 1L
-
-                val requestBody = objectMapper.writeValueAsString(signUpRequest)
 
                 it("201 상태코드를 반환한다.") {
+
+                    every { signUpUseCase(any()) } returns 1L
+
+                    val requestBody = objectMapper.writeValueAsString(signUpRequest())
 
                     mockMvc.perform(
                         post(url)
@@ -50,7 +51,26 @@ class MemberControllerTest(
                         .andDo(print())
                 }
             }
+
+            context("이미 존재하는 이메일이면") {
+
+                it("400 상태코드를 반환한다") {
+
+                    every { signUpUseCase(any()) } throws MemberException(
+                        ErrorCode.ALREADY_EXISTS_EMAIL
+                    )
+
+                    val requestBody = objectMapper.writeValueAsString(signUpRequest())
+
+                    mockMvc.perform(
+                        post(url)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestBody)
+                    )
+                        .andExpect(status().isBadRequest)
+                        .andDo(print())
+                }
+            }
         }
     }
-
 }
