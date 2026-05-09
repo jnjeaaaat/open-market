@@ -13,7 +13,7 @@ class Product(
     val seller: Member,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    val category: Category,
+    var category: Category,
 
     @Column(nullable = false)
     var name: String,
@@ -22,7 +22,7 @@ class Product(
     var description: String,
 
     @Column(nullable = false)
-    val price: Long,
+    var price: Long,
 
     @Column(nullable = false)
     var discountRate: Int = 0,

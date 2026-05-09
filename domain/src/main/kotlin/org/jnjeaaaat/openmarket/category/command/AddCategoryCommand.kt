@@ -16,7 +16,7 @@ data class AddCategoryResult(
     val parentName: String?
 )
 
-fun AddCategoryCommand.toEntity(depth: Int?, sortOrder: Int?): Category {
+fun AddCategoryCommand.toEntity(depth: Int?, sortOrder: Int): Category {
     return Category(
         name = name,
         parentId = parentId,

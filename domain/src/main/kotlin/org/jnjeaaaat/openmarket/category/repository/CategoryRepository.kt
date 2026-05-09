@@ -17,9 +17,10 @@ interface CategoryRepository : JpaRepository<Category, Long> {
     )
     fun findMaxSortOrder(parentId: Long?): Int?
 
-    fun getNextSortOrder(parentId: Long?): Int? {
+    fun getNextSortOrder(parentId: Long?): Int {
         return (findMaxSortOrder(parentId) ?: 0) + 1
     }
 
     fun findAllByParentId(parentId: Long?): List<Category>
+    fun existsByParentIdAndName(parentId: Long?, name: String): Boolean
 }

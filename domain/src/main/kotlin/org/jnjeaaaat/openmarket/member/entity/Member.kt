@@ -11,7 +11,7 @@ class Member(
     val email: String,
 
     @Column(nullable = false)
-    val password: String,
+    var password: String,
 
     @Column(nullable = false)
     var name: String,
@@ -23,11 +23,12 @@ class Member(
     var zipCode: String = "",
 
     @Enumerated(EnumType.STRING)
-    val memberType: MemberType = MemberType.BUYER
+    var memberType: MemberType = MemberType.BUYER
 
 ) : BaseEntity() {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
 }
