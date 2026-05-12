@@ -1,13 +1,28 @@
-dependencies {
-    api(project(":support:exception"))
-    api(project(":support:jpa"))
-    api(project(":support:event"))
-    api(project(":support:logging"))
+plugins {
+    kotlin("kapt")
+}
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+dependencies {
+    implementation(project(":support:exception"))
+    implementation(project(":support:jpa"))
+    implementation(project(":support:event"))
+    implementation(project(":support:logging"))
+    implementation(project(":support:redis"))
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // QueryDSL
+    implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
+
+    kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
+    kapt("jakarta.annotation:jakarta.annotation-api")
+    kapt("jakarta.persistence:jakarta.persistence-api")
+}
+
+tasks.bootJar {
+    enabled = false
+}
+
+tasks.jar {
+    enabled = true
 }

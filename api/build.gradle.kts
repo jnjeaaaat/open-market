@@ -1,6 +1,7 @@
 dependencies {
-    api(project(":domain"))
-    api(project(":support:exception"))
+    implementation(project(":domain"))
+    implementation(project(":support:exception"))
+    implementation(project(":support:logging"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
@@ -12,9 +13,11 @@ dependencies {
 
     runtimeOnly("com.h2database:h2")
 
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+//    compileOnly("org.projectlombok:lombok")
+//    annotationProcessor("org.projectlombok:lombok")
 
+
+    // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.9.1")
