@@ -12,6 +12,7 @@ import org.jnjeaaaat.openmarket.category.fixture.CategoryFixture.addCategoryResu
 import org.jnjeaaaat.openmarket.category.fixture.CategoryFixture.childCategory
 import org.jnjeaaaat.openmarket.category.fixture.CategoryFixture.getCategoryResult
 import org.jnjeaaaat.openmarket.category.usecase.AddCategoryUseCase
+import org.jnjeaaaat.openmarket.category.usecase.GetCategoryTreeUseCase
 import org.jnjeaaaat.openmarket.category.usecase.GetCategoryUseCase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -34,6 +35,9 @@ class CategoryControllerTest(
 
     @MockkBean
     lateinit var getCategoryUseCase: GetCategoryUseCase
+
+    @MockkBean
+    lateinit var getCategoryTreeUseCase: GetCategoryTreeUseCase
 
     override fun extensions() = listOf(SpringExtension)
 

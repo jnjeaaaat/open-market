@@ -3,11 +3,11 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":support:exception"))
-    implementation(project(":support:jpa"))
-    implementation(project(":support:event"))
-    implementation(project(":support:logging"))
-    implementation(project(":support:redis"))
+    api(project(":support:exception"))
+    api(project(":support:jpa"))
+    api(project(":support:event"))
+    api(project(":support:logging"))
+    api(project(":support:redis"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 

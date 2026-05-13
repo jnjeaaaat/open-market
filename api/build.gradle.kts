@@ -1,7 +1,8 @@
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":support:exception"))
-    implementation(project(":support:logging"))
+    api(project(":domain"))
+    api(project(":support:exception"))
+    api(project(":support:logging"))
+    api(project(":support:redis"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
@@ -12,10 +13,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     runtimeOnly("com.h2database:h2")
-
-//    compileOnly("org.projectlombok:lombok")
-//    annotationProcessor("org.projectlombok:lombok")
-
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -31,4 +28,7 @@ dependencies {
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.1.10")
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-kotlin:1.1.10")
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-kotest:1.1.10")
+
+    testImplementation("org.testcontainers:junit-jupiter:1.20.1")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
 }
