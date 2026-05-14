@@ -5,7 +5,8 @@ import org.jnjeaaaat.openmarket.category.command.AddCategoryCommand
 import org.jnjeaaaat.openmarket.category.command.AddCategoryResult
 import org.jnjeaaaat.openmarket.category.command.ChildCategory
 import org.jnjeaaaat.openmarket.category.command.GetCategoryResult
-import org.jnjeaaaat.openmarket.category.dto.request.AddCategoryRequest
+import org.jnjeaaaat.openmarket.category.dto.AddCategoryRequest
+//import org.jnjeaaaat.openmarket.category.dto.request.AddCategoryRequest
 import org.jnjeaaaat.openmarket.category.entity.Category
 import org.jnjeaaaat.openmarket.support.FixtureMonkeyConfig.fixtureMonkey
 import java.time.LocalDateTime

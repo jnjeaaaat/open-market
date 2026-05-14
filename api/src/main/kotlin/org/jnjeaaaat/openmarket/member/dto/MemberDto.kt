@@ -1,9 +1,8 @@
-package org.jnjeaaaat.openmarket.member.dto.request
+package org.jnjeaaaat.openmarket.member.dto
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
-import org.jnjeaaaat.openmarket.member.command.SignUpCommand
 
 data class SignUpRequest(
     @NotBlank
@@ -19,11 +18,3 @@ data class SignUpRequest(
     @NotBlank
     val name: String
 )
-
-fun SignUpRequest.toCommand(): SignUpCommand {
-    return SignUpCommand(
-        email = email,
-        password = password,
-        name = name
-    )
-}

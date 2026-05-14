@@ -1,28 +1,26 @@
 package org.jnjeaaaat.openmarket.category.command
 
 import org.jnjeaaaat.openmarket.category.entity.Category
-import java.time.LocalDateTime
 
-data class GetCategoryResult(
-    val id: Long,
-    val name: String,
-    val depth: Int,
-    val sortOrder: Int,
-    val children: List<ChildCategory> = emptyList(),
-    val isVisible: Boolean,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime? = null
-)
+fun AddCategoryCommand.toEntity(depth: Int?, sortOrder: Int): Category {
+    return Category(
+        name = name,
+        parentId = parentId,
+        depth = depth,
+        sortOrder = sortOrder
+    )
+}
 
-data class ChildCategory(
-    val id: Long,
-    val name: String,
-    val depth: Int,
-    val sortOrder: Int,
-    val isVisible: Boolean,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime? = null
-)
+fun Category.toAddResult(parent: Category?): AddCategoryResult {
+    return AddCategoryResult(
+        id = requireNotNull(id),
+        name = name,
+        depth = requireNotNull(depth),
+        sortOrder = requireNotNull(sortOrder),
+        parentId = parentId,
+        parentName = parent?.name
+    )
+}
 
 fun Category.toGetResult(children: List<Category> = emptyList()): GetCategoryResult {
     return GetCategoryResult(

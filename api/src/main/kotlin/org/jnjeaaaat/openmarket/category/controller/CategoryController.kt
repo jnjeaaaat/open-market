@@ -1,12 +1,7 @@
 package org.jnjeaaaat.openmarket.category.controller
 
 import jakarta.validation.Valid
-import org.jnjeaaaat.openmarket.category.dto.request.AddCategoryRequest
-import org.jnjeaaaat.openmarket.category.dto.request.toCommand
-import org.jnjeaaaat.openmarket.category.dto.response.AddCategoryResponse
-import org.jnjeaaaat.openmarket.category.dto.response.CategoryTreeResponse
-import org.jnjeaaaat.openmarket.category.dto.response.GetCategoryResponse
-import org.jnjeaaaat.openmarket.category.dto.response.toResponse
+import org.jnjeaaaat.openmarket.category.dto.*
 import org.jnjeaaaat.openmarket.category.usecase.AddCategoryUseCase
 import org.jnjeaaaat.openmarket.category.usecase.GetCategoryTreeUseCase
 import org.jnjeaaaat.openmarket.category.usecase.GetCategoryUseCase

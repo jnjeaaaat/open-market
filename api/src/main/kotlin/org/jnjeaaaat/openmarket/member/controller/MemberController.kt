@@ -1,8 +1,8 @@
 package org.jnjeaaaat.openmarket.member.controller
 
 import jakarta.validation.Valid
-import org.jnjeaaaat.openmarket.member.dto.request.SignUpRequest
-import org.jnjeaaaat.openmarket.member.dto.request.toCommand
+import org.jnjeaaaat.openmarket.member.dto.SignUpRequest
+import org.jnjeaaaat.openmarket.member.dto.toCommand
 import org.jnjeaaaat.openmarket.member.usecase.SignUpUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
