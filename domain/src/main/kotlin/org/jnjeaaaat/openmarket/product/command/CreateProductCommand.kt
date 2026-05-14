@@ -9,7 +9,7 @@ data class CreateProductCommand(
     val description: String,
     val price: Long,
     val initStock: Int,
-    val categoryId: Int
+    val categoryId: Long
 )
 
 data class CreateProductResult(

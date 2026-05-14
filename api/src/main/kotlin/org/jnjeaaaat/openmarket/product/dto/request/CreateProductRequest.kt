@@ -7,7 +7,7 @@ data class CreateProductRequest(
     val description: String,
     val price: Long,
     val initStock: Int,
-    val categoryId: Int
+    val categoryId: Long
 )
 
 fun CreateProductRequest.toCommand(): CreateProductCommand {
