@@ -1,16 +1,32 @@
+plugins {
+    kotlin("kapt")
+}
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    api(project(":support:exception"))
+    api(project(":support:jpa"))
+    api(project(":support:event"))
+    api(project(":support:logging"))
+    api(project(":support:redis"))
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("tools.jackson.module:jackson-module-kotlin")
+    // cache
+    implementation("com.github.ben-manes.caffeine:caffeine")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
 
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("com.mysql:mysql-connector-j")
+    // QueryDSL
+    implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
 
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+    kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
+    kapt("jakarta.annotation:jakarta.annotation-api")
+    kapt("jakarta.persistence:jakarta.persistence-api")
+}
 
-    testImplementation(kotlin("test"))
+tasks.bootJar {
+    enabled = false
+}
+
+tasks.jar {
+    enabled = true
 }
