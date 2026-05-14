@@ -6,6 +6,8 @@ import org.jnjeaaaat.openmarket.category.command.CategoryTreeResult
 import org.jnjeaaaat.openmarket.category.repository.CategoryCacheRepository
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.toJavaDuration
 
 @Repository
 class CategoryCacheRepositoryImpl(
@@ -14,7 +16,9 @@ class CategoryCacheRepositoryImpl(
 ) : CategoryCacheRepository {
 
     companion object {
-        private const val CATEGORY_TREE_KEY = "category:tree"
+        // DTO 구조 변경, 직렬화 형태 변경, 필드 추가/삭제에 따른 버전 변경
+        private const val CATEGORY_TREE_KEY = "category:tree:v1"
+        private val CATEGORY_TREE_TTL = 1.hours.toJavaDuration()
     }
 
     override fun getTree(): List<CategoryTreeResult>? {
@@ -33,9 +37,10 @@ class CategoryCacheRepositoryImpl(
         val json = objectMapper.writeValueAsString(categoryTree)
 
         redisTemplate.opsForValue()
-            .set(
+            .setIfAbsent(
                 CATEGORY_TREE_KEY,
-                json
+                json,
+                CATEGORY_TREE_TTL
             )
     }
 }
