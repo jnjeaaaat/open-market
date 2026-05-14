@@ -11,6 +11,10 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    // cache
+    implementation("com.github.ben-manes.caffeine:caffeine")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
 

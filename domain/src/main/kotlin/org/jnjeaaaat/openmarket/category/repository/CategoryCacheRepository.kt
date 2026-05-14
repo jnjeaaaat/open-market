@@ -6,4 +6,5 @@ interface CategoryCacheRepository {
 
     fun getTree(): List<CategoryTreeResult>?
     fun saveTree(categoryTree: List<CategoryTreeResult>)
+    fun deleteTree()
 }
