@@ -8,22 +8,26 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.jnjeaaaat.openmarket.ErrorCode
-import org.jnjeaaaat.openmarket.member.event.MemberRegisteredEvent
+import org.jnjeaaaat.openmarket.cart.entity.Cart
+import org.jnjeaaaat.openmarket.cart.repository.CartRepository
 import org.jnjeaaaat.openmarket.member.exception.MemberException
 import org.jnjeaaaat.openmarket.member.fixture.MemberFixture.member
 import org.jnjeaaaat.openmarket.member.fixture.MemberFixture.signUpCommand
 import org.jnjeaaaat.openmarket.member.repository.MemberRepository
 import org.jnjeaaaat.openmarket.member.type.MemberType
-import org.springframework.context.ApplicationEventPublisher
+import org.jnjeaaaat.openmarket.wallet.entity.Wallet
+import org.jnjeaaaat.openmarket.wallet.repository.WalletRepository
 
 class SignUpUseCaseTest : FunSpec({
 
     val memberRepository = mockk<MemberRepository>()
-    val publisher = mockk<ApplicationEventPublisher>(relaxed = true)
+    val cartRepository = mockk<CartRepository>()
+    val walletRepository = mockk<WalletRepository>()
 
     val signUpUseCase = SignUpUseCase(
         memberRepository,
-        publisher
+        cartRepository,
+        walletRepository,
     )
 
     beforeTest {
@@ -61,12 +65,15 @@ class SignUpUseCaseTest : FunSpec({
             name = command.name,
             memberType = MemberType.SELLER
         ).apply { id = 1L }
+        val cart = Cart(savedMember)
+        val wallet = Wallet(savedMember)
 
         every { memberRepository.existsByEmail(any()) } returns false
 
         // when
         every { memberRepository.save(any()) } returns savedMember
-        every { publisher.publishEvent(any()) } returns Unit
+        every { cartRepository.save(any()) } returns cart
+        every { walletRepository.save(any()) } returns wallet
 
         val result = signUpUseCase(command)
 
@@ -87,8 +94,18 @@ class SignUpUseCaseTest : FunSpec({
         }
 
         verify(exactly = 1) {
-            publisher.publishEvent(
-                ofType(MemberRegisteredEvent::class)
+            cartRepository.save(
+                match {
+                    it.member == savedMember
+                }
+            )
+        }
+
+        verify(exactly = 1) {
+            walletRepository.save(
+                match {
+                    it.member == savedMember
+                }
             )
         }
     }

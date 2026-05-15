@@ -23,6 +23,7 @@ class Member(
     var zipCode: String = "",
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     var memberType: MemberType = MemberType.BUYER
 
 ) : BaseEntity() {
