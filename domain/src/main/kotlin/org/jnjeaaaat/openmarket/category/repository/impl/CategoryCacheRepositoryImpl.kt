@@ -13,7 +13,7 @@ import kotlin.time.toJavaDuration
 
 @Repository
 class CategoryCacheRepositoryImpl(
-    private val redisTemplate: RedisTemplate<String, String>,
+    private val redisTemplate: RedisTemplate<String, Any>,
     private val objectMapper: ObjectMapper,
     private val categoryTreeCache: Cache<String, List<CategoryTreeResult>>
 ) : CategoryCacheRepository {
@@ -36,7 +36,7 @@ class CategoryCacheRepositoryImpl(
             }
 
         val json = redisTemplate.opsForValue()
-            .get(CATEGORY_TREE_KEY)
+            .get(CATEGORY_TREE_KEY)?.toString()
             ?: return null
 
         val tree = objectMapper.readValue<List<CategoryTreeResult>>(json)

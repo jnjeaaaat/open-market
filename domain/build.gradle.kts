@@ -15,6 +15,9 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine")
     implementation("org.springframework.boot:spring-boot-starter-cache")
 
+    // coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
 

@@ -24,6 +24,15 @@ class Wallet(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 
+    @Version
+    var version: Long = 0
+
+    fun charge(amount: Long): Long {
+        val before = balance
+        balance += amount
+        return before
+    }
+
     companion object {
         fun of(member: Member) = Wallet(member = member)
     }

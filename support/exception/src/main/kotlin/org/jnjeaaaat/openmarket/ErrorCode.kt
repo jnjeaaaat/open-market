@@ -16,5 +16,7 @@ enum class ErrorCode(
     NOT_FOUND_CATEGORY(NOT_FOUND, "존재하지 않는 카테고리 입니다."),
     ALREADY_EXISTS_CATEGORY(BAD_REQUEST, "이미 존재하는 카테고리입니다."),
 
+    NOT_FOUND_WALLET(NOT_FOUND, "존재하지 않는 지갑 입니다."),
+    CHARGE_LIMIT_EXCEEDED(BAD_REQUEST, "일일 충전 한도를 초과했습니다."),
     ;
 }
