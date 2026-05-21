@@ -7,6 +7,7 @@ import org.jnjeaaaat.openmarket.category.command.AddCategoryResult
 import org.jnjeaaaat.openmarket.category.command.toAddResult
 import org.jnjeaaaat.openmarket.category.command.toEntity
 import org.jnjeaaaat.openmarket.category.exception.CategoryException
+import org.jnjeaaaat.openmarket.category.repository.CategoryCacheRepository
 import org.jnjeaaaat.openmarket.category.repository.CategoryRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -14,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class AddCategoryUseCase(
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val categoryCacheRepository: CategoryCacheRepository
 ) {
 
     @Transactional
@@ -34,6 +36,8 @@ class AddCategoryUseCase(
         val savedCategory = categoryRepository.save(
             command.toEntity(depth, sortOrder)
         )
+
+        categoryCacheRepository.deleteTree()
 
         return savedCategory.toAddResult(parent)
     }
