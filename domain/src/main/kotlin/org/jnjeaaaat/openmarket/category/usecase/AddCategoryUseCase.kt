@@ -1,8 +1,7 @@
 package org.jnjeaaaat.openmarket.category.usecase
 
-
-import org.jnjeaaaat.openmarket.ErrorCode
 import org.jnjeaaaat.openmarket.ErrorCode.ALREADY_EXISTS_CATEGORY
+import org.jnjeaaaat.openmarket.ErrorCode.NOT_FOUND_CATEGORY
 import org.jnjeaaaat.openmarket.category.command.AddCategoryCommand
 import org.jnjeaaaat.openmarket.category.command.AddCategoryResult
 import org.jnjeaaaat.openmarket.category.command.toAddResult
@@ -25,13 +24,16 @@ class AddCategoryUseCase(
         val parent = command.parentId
             ?.let {
                 categoryRepository.findByIdOrNull(it)
-                    ?: throw CategoryException(ErrorCode.NOT_FOUND_CATEGORY)
+                    ?: throw CategoryException(NOT_FOUND_CATEGORY)
             }
 
         val depth = (parent?.depth ?: 0) + 1
-        val sortOrder = categoryRepository.getNextSortOrder(command.parentId)
+        val sortOrder = categoryRepository
+            .getNextSortOrder(command.parentId)
 
-        val savedCategory = categoryRepository.save(command.toEntity(depth, sortOrder))
+        val savedCategory = categoryRepository.save(
+            command.toEntity(depth, sortOrder)
+        )
 
         return savedCategory.toAddResult(parent)
     }
