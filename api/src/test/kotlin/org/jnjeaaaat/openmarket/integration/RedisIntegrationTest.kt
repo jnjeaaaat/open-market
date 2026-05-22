@@ -135,7 +135,7 @@ class RedisIntegrationTest : BehaviorSpec() {
                 Then("분산락에 의해 최종 잔액은 1_000_000원이어야 한다") {
 
                     // 최종 지갑 잔액 검증
-                    val updatedWallet = walletRepository.findByMemberIdForUpdate(1L)
+                    val updatedWallet = walletRepository.findByMemberId(1L)
                         ?: throw WalletException(ErrorCode.NOT_FOUND_WALLET)
                     updatedWallet.balance shouldBe 1_000_000
                 }

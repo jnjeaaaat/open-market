@@ -65,8 +65,8 @@ class SignUpUseCaseTest : FunSpec({
             name = command.name,
             memberType = MemberType.SELLER
         ).apply { id = 1L }
-        val cart = Cart(savedMember)
-        val wallet = Wallet(savedMember)
+        val cart = Cart.of(savedMember)
+        val wallet = Wallet.of(savedMember)
 
         every { memberRepository.existsByEmail(any()) } returns false
 
@@ -96,7 +96,7 @@ class SignUpUseCaseTest : FunSpec({
         verify(exactly = 1) {
             cartRepository.save(
                 match {
-                    it.member == savedMember
+                    it.memberId == savedMember.id
                 }
             )
         }
@@ -104,7 +104,7 @@ class SignUpUseCaseTest : FunSpec({
         verify(exactly = 1) {
             walletRepository.save(
                 match {
-                    it.member == savedMember
+                    it.memberId == savedMember.id
                 }
             )
         }

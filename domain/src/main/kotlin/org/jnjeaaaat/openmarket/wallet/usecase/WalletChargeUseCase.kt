@@ -27,7 +27,7 @@ class WalletChargeUseCase(
 
         validateChargeLimit(command.amount, memberId)
 
-        val wallet = walletRepository.findByMemberIdForUpdate(memberId)
+        val wallet = walletRepository.findByMemberId(memberId)
             ?: throw WalletException(NOT_FOUND_WALLET)
 
         val beforeBalance = wallet.charge(command.amount)

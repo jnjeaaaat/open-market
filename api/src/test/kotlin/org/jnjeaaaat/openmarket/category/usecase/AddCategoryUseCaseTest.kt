@@ -5,20 +5,24 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import io.mockk.verify
 import org.jnjeaaaat.openmarket.ErrorCode
 import org.jnjeaaaat.openmarket.category.exception.CategoryException
 import org.jnjeaaaat.openmarket.category.fixture.CategoryFixture.addCategoryCommand
 import org.jnjeaaaat.openmarket.category.fixture.CategoryFixture.category
+import org.jnjeaaaat.openmarket.category.repository.CategoryCacheRepository
 import org.jnjeaaaat.openmarket.category.repository.CategoryRepository
 import org.springframework.data.repository.findByIdOrNull
 
 class AddCategoryUseCaseTest : FunSpec({
 
     val categoryRepository = mockk<CategoryRepository>()
+    val categoryCacheRepository = mockk<CategoryCacheRepository>()
 
-    val addCategoryUseCase = AddCategoryUseCase(categoryRepository)
+    val addCategoryUseCase = AddCategoryUseCase(categoryRepository, categoryCacheRepository)
 
     beforeTest {
         clearMocks(categoryRepository)
@@ -111,6 +115,10 @@ class AddCategoryUseCaseTest : FunSpec({
         every {
             categoryRepository.save(any())
         } returns savedCategory
+
+        every {
+            categoryCacheRepository.deleteTree()
+        } just runs
 
         val result = addCategoryUseCase(command)
 
