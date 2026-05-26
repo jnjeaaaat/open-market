@@ -22,6 +22,10 @@ class Cart(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 
+    fun addItem(item: CartItem) {
+        items.add(item)
+    }
+
     companion object {
         fun of(
             member: Member

@@ -5,6 +5,11 @@ import org.jnjeaaaat.openmarket.entity.BaseEntity
 import org.jnjeaaaat.openmarket.product.entity.Product
 
 @Entity
+@Table(
+    uniqueConstraints = [
+        UniqueConstraint(name = "uk_cart_item_cart_product", columnNames = ["cart_id", "product_id"])
+    ]
+)
 class CartItem(
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,6 +30,9 @@ class CartItem(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
+    fun increaseQuantity(quantity: Int) {
+        this.quantity += quantity
+    }
 }
