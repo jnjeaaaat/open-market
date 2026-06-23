@@ -1,7 +1,8 @@
-package org.jnjeaaaat.openmarket.category.util
+package org.jnjeaaaat.openmarket.category.usecase.component
 
 import org.jnjeaaaat.openmarket.category.command.CategoryTreeResult
 import org.jnjeaaaat.openmarket.category.entity.Category
+import kotlin.collections.get
 
 object CategoryTreeAssembler {
 

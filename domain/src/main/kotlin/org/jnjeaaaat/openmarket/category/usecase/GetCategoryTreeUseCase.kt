@@ -3,7 +3,7 @@ package org.jnjeaaaat.openmarket.category.usecase
 import org.jnjeaaaat.openmarket.category.command.CategoryTreeResult
 import org.jnjeaaaat.openmarket.category.repository.CategoryCacheRepository
 import org.jnjeaaaat.openmarket.category.repository.CategoryQueryRepository
-import org.jnjeaaaat.openmarket.category.util.CategoryTreeAssembler.assemble
+import org.jnjeaaaat.openmarket.category.usecase.component.CategoryTreeAssembler.assemble
 import org.springframework.stereotype.Service
 
 @Service

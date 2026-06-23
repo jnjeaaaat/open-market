@@ -14,7 +14,8 @@ import org.jnjeaaaat.openmarket.cart.repository.CartRepository
 import org.jnjeaaaat.openmarket.product.entity.Product
 import org.jnjeaaaat.openmarket.product.exception.ProductException
 import org.jnjeaaaat.openmarket.product.repository.ProductRepository
-import org.jnjeaaaat.openmarket.product.service.ProductValidator
+import org.jnjeaaaat.openmarket.product.usecase.component.ProductValidator.validateSoldOut
+import org.jnjeaaaat.openmarket.product.usecase.component.ProductValidator.validateStock
 import org.jnjeaaaat.openmarket.util.logger
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -24,8 +25,7 @@ import org.springframework.transaction.annotation.Transactional
 class AddCartItemUseCase(
     private val cartRepository: CartRepository,
     private val cartItemRepository: CartItemRepository,
-    private val productRepository: ProductRepository,
-    private val productValidator: ProductValidator
+    private val productRepository: ProductRepository
 ) {
 
     private val log = logger()
@@ -39,7 +39,7 @@ class AddCartItemUseCase(
 
         log.info { "product 조회 query" }
         val product: Product = productRepository.findByIdOrNull(command.productId)
-            ?.also { productValidator.validateSoldOut(it) }
+            ?.also { validateSoldOut(it) }
             ?: throw ProductException(NOT_FOUND_PRODUCT)
 
         log.info { "cartItem 있는지 조회 query" }
@@ -71,7 +71,7 @@ class AddCartItemUseCase(
         stock: Int,
         quantity: Int
     ): CartItem {
-        productValidator.validateStock(stock, cartItem.quantity + quantity)
+        validateStock(stock, cartItem.quantity + quantity)
 
         cartItem.increaseQuantity(quantity)
 
@@ -89,7 +89,7 @@ class AddCartItemUseCase(
         stock: Int,
         quantity: Int
     ): CartItem {
-        productValidator.validateStock(stock, quantity)
+        validateStock(stock, quantity)
 
         val savedCartItem = cartItemRepository.save(
             command.toEntity(cart, product)
