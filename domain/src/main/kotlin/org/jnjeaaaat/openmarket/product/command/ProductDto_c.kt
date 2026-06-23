@@ -9,5 +9,5 @@ data class CreateProductCommand(
 )
 
 data class CreateProductResult(
-    val id: Long? = null
+    val id: Long
 )

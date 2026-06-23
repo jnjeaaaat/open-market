@@ -9,5 +9,5 @@ data class CreateProductRequest(
 )
 
 data class CreateProductResponse(
-    val id: Long? = null
+    val id: Long
 )

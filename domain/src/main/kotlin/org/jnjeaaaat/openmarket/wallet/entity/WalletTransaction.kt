@@ -1,6 +1,7 @@
 package org.jnjeaaaat.openmarket.wallet.entity
 
 import jakarta.persistence.*
+import org.jnjeaaaat.openmarket.entity.BaseEntity
 import org.jnjeaaaat.openmarket.wallet.type.WalletTransactionType
 
 @Entity
@@ -22,7 +23,8 @@ class WalletTransaction(
 
     @Column(nullable = false)
     val afterBalance: Long
-) {
+) : BaseEntity() {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

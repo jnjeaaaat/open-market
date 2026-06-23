@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CartItemRepository : JpaRepository<CartItem, Long> {
+    fun findAllByIdInAndCart(ids: List<Long>, cart: Cart): List<CartItem>
     fun findByCartAndProduct(cart: Cart, product: Product): CartItem?
 }

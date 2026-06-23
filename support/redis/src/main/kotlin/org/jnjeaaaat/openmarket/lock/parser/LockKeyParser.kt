@@ -17,13 +17,16 @@ class LockKeyParser {
         joinPoint: ProceedingJoinPoint,
         expression: String
     ): String {
+        return parseToAny(joinPoint, expression) as? String
+            ?: throw LockException(ErrorCode.INTERNAL_ERROR)
+    }
 
-        val signature =
-            joinPoint.signature as MethodSignature
-
-        val parameterNames =
-            signature.parameterNames
-
+    fun parseToAny(
+        joinPoint: ProceedingJoinPoint,
+        expression: String
+    ): Any {
+        val signature = joinPoint.signature as MethodSignature
+        val parameterNames = signature.parameterNames
         val args = joinPoint.args
 
         val context = StandardEvaluationContext()
@@ -32,8 +35,7 @@ class LockKeyParser {
             context.setVariable(name, args[index])
         }
 
-        return parser.parseExpression(expression)
-            .getValue(context, String::class.java)
+        return parser.parseExpression(expression).getValue(context)
             ?: throw LockException(ErrorCode.INTERNAL_ERROR)
     }
 }

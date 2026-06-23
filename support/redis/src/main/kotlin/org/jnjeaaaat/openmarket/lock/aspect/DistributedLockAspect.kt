@@ -3,8 +3,10 @@ package org.jnjeaaaat.openmarket.lock.aspect
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
+import org.jnjeaaaat.openmarket.ErrorCode
 import org.jnjeaaaat.openmarket.lock.annotation.DistributedLock
 import org.jnjeaaaat.openmarket.lock.annotation.DistributedMultiLock
+import org.jnjeaaaat.openmarket.lock.exception.LockException
 import org.jnjeaaaat.openmarket.lock.executor.LockExecutor
 import org.jnjeaaaat.openmarket.lock.parser.LockKeyParser
 import org.redisson.RedissonMultiLock
@@ -49,16 +51,21 @@ class DistributedLockAspect(
         lock: DistributedMultiLock
     ): Any? {
 
-        val locks = lock.keys
-            .map {
-                val key =
-                    lockKeyParser.parse(
-                        joinPoint,
-                        it
-                    )
-
-                redissonClient.getLock(key)
+        val lockKeys = lock.keys
+            .flatMap { expression ->
+                when (val parsed = lockKeyParser.parseToAny(joinPoint, expression)) {
+                    is String -> listOf(parsed)
+                    is Collection<*> -> parsed.map { it.toString() }
+                    is Array<*> -> parsed.map { it.toString() }
+                    else -> throw LockException(ErrorCode.INTERNAL_ERROR)
+                }
             }
+            .distinct()
+            .sorted()
+
+        val locks = lockKeys.map { key ->
+            redissonClient.getLock(key)
+        }
 
         val multiLock =
             RedissonMultiLock(

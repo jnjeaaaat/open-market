@@ -1,9 +1,8 @@
-package org.jnjeaaaat.openmarket.orderItem.entity
+package org.jnjeaaaat.openmarket.order.entity
 
 import jakarta.persistence.*
 import org.jnjeaaaat.openmarket.member.entity.Member
-import org.jnjeaaaat.openmarket.order.entity.Order
-import org.jnjeaaaat.openmarket.orderItem.type.OrderStatus
+import org.jnjeaaaat.openmarket.order.type.OrderItemStatus
 import org.jnjeaaaat.openmarket.product.entity.Product
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -16,7 +15,7 @@ class OrderItem(
     @ManyToOne(fetch = FetchType.LAZY)
     val order: Order,
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     val product: Product,
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,14 +28,14 @@ class OrderItem(
     val quantity: Int,
 
     @Enumerated(EnumType.STRING)
-    var status: OrderStatus,
-
-    @CreatedDate
-    val orderDate: LocalDateTime
+    var status: OrderItemStatus = OrderItemStatus.PENDING_PAYMENT,
 ) {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
+    @CreatedDate
+    @Column(updatable = false)
+    lateinit var orderDate: LocalDateTime
 }

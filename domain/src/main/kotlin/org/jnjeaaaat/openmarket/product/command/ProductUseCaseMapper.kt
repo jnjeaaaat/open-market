@@ -17,6 +17,6 @@ fun CreateProductCommand.toEntity(member: Member, category: Category): Product {
 
 fun Product.toResult(): CreateProductResult {
     return CreateProductResult(
-        id = id
+        id = requireNotNull(id)
     )
 }

@@ -12,8 +12,29 @@ services:
     networks:
       - openmarket-server
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: openmarket-rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"     # Spring Boot 연결용
+      - "15672:15672"   # RabbitMQ Admin UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 1234
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - openmarket-server
+
 volumes:
   redis-data:
+  rabbitmq_data:
 
 networks:
   openmarket-server:
