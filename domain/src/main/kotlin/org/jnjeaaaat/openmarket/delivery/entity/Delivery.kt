@@ -3,7 +3,7 @@ package org.jnjeaaaat.openmarket.delivery.entity
 import jakarta.persistence.*
 import org.jnjeaaaat.openmarket.delivery.type.DeliveryStatus
 import org.jnjeaaaat.openmarket.entity.BaseEntity
-import org.jnjeaaaat.openmarket.orderItem.entity.OrderItem
+import org.jnjeaaaat.openmarket.order.entity.OrderItem
 
 @Entity
 class Delivery(
@@ -19,15 +19,6 @@ class Delivery(
 
     @Enumerated(EnumType.STRING)
     val status: DeliveryStatus,
-
-    @Column(nullable = false)
-    val receiverName: String,
-
-    @Column(nullable = false)
-    val address: String,
-
-    @Column(nullable = false)
-    val zipCode: String
 
 ) : BaseEntity() {
 

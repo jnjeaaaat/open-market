@@ -2,7 +2,7 @@ package org.jnjeaaaat.openmarket.member.fixture
 
 import com.navercorp.fixturemonkey.kotlin.giveMeKotlinBuilder
 import org.jnjeaaaat.openmarket.member.command.SignUpCommand
-import org.jnjeaaaat.openmarket.member.dto.request.SignUpRequest
+import org.jnjeaaaat.openmarket.member.dto.SignUpRequest
 import org.jnjeaaaat.openmarket.member.entity.Member
 import org.jnjeaaaat.openmarket.member.type.MemberType
 import org.jnjeaaaat.openmarket.support.FixtureMonkeyConfig.fixtureMonkey

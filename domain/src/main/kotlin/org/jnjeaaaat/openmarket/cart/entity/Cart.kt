@@ -11,9 +11,8 @@ import org.jnjeaaaat.openmarket.member.entity.Member
 )
 class Cart(
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", unique = true)
-    val member: Member,
+    @Column(name = "member_id", nullable = false, unique = true)
+    val memberId: Long,
 
     @OneToMany(mappedBy = "cart", cascade = [CascadeType.ALL], orphanRemoval = true)
     val items: MutableList<CartItem> = mutableListOf()
@@ -23,7 +22,15 @@ class Cart(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 
+    fun addItem(item: CartItem) {
+        items.add(item)
+    }
+
     companion object {
-        fun of(member: Member) = Cart(member = member)
+        fun of(
+            member: Member
+        ) = Cart(
+            memberId = requireNotNull(member.id)
+        )
     }
 }

@@ -30,6 +30,9 @@ class Product(
     @Column(nullable = false)
     var stock: Int,
 
+    @Column(nullable = false)
+    var reservedStock: Int = 0,
+
     @Enumerated(EnumType.STRING)
     var status: ProductStatus = ProductStatus.NORMAL
 
@@ -39,4 +42,11 @@ class Product(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
+    fun reserveStock(quantity: Int) {
+        reservedStock += quantity
+    }
+
+    fun releaseReservedStock(quantity: Int) {
+        reservedStock -= quantity
+    }
 }

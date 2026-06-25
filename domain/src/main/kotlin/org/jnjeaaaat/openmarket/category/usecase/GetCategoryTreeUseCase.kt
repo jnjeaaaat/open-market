@@ -3,7 +3,7 @@ package org.jnjeaaaat.openmarket.category.usecase
 import org.jnjeaaaat.openmarket.category.command.CategoryTreeResult
 import org.jnjeaaaat.openmarket.category.repository.CategoryCacheRepository
 import org.jnjeaaaat.openmarket.category.repository.CategoryQueryRepository
-import org.jnjeaaaat.openmarket.category.util.CategoryTreeAssembler.assemble
+import org.jnjeaaaat.openmarket.category.usecase.component.CategoryTreeAssembler.assemble
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,18 +15,14 @@ class GetCategoryTreeUseCase(
     operator fun invoke(): List<CategoryTreeResult> {
 
         // redis 캐시 확인
-        val cachedCategories = categoryCacheRepository.getTree() // redis 캐시 확인
-
-        if (cachedCategories != null) {
-            return cachedCategories
-        }
+        categoryCacheRepository.getTree()
+            ?.let { return it }
 
         // 없으면 db 조회(queryDsl)
-        val categories = categoryQueryRepository.findVisibleCategories()
-        val sortedCategories = categories.sortedBy { it.sortOrder }
-
-        // tree 조립
-        val tree = assemble(sortedCategories)
+        val tree = assemble(
+            categoryQueryRepository.findVisibleCategories()
+                .sortedBy { it.sortOrder }
+        )
 
         // redis 저장
         categoryCacheRepository.saveTree(tree)
